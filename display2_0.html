@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8">
     <title>Guessnumber2</title>
-    <script defer src="control2.js"></script>
+    <script defer src="control2_0.js"></script>
   </head>
 
   <body>
@@ -15,14 +15,16 @@
     <h2>ルール</h2>
     1.ある自然数がお題の数になります。(現状256以上65536以下)<br>
     A natural number is given, and it is not shown. (now 256~65536)<br>
-    2.お題の数より小さい自然数を入力すると、お題の数を入力された数で割った余りを表示します。<br>
-    If you input a natural number smaller than the given number, the reminder from a division is shown.<br>
-    3.お題の数ちょうどを入力すると、あなたの勝ちです。<br>
+    2.お題の数ちょうどを入力すると、あなたの勝ちです。<br>
     If you input just the given number, you win.<br>
-    4.お題の数より大きい自然数、またはお題の数の約数を入力すると、あなたの負けです。<br>
-    If you input a natural number larger than the given number or being a divisor of it, you lose.<br>
-    5.1回目の入力を除いて、入力できる数は直前に示された余りの倍数に限ります。<br>
-    You can input only a multiple number of the latest divisor except the first input.<br><br>
+    3a.お題の数より小さい自然数を入力するとお題の数と入力された数で互除法が実行されて、割り算の回数が表示されます。<br>
+    If you input a natural number smaller than the given number, the mutual division method is proceeded with the input and the given and how many divisions are in the method is shown.<br>
+    3b.互除法の過程で生成される余りの列の一部が以前生成されたものに一致した場合、一致した部分も併せて表示されます。<br>
+    If a part of the sequence of divisors produced by the method in each input is included in the sequences proceeded before, it is also shown.<br>
+    4.お題の数より大きい数を入力して余りの列が表示されると、あなたの負けです。それ以外はルール3と同様に処理されます。<br>
+    If a sequence of divisors is shown when you input a natural number larger than the given number, you lose. If not, it is the same as the rule 3.<br>
+    5.1度入力した自然数を再度入力することはできません。<br>
+    You cannot input any natural number input before.<br><br>
     <form action="javascript:void(0)">
       <div>
 	<label for="number">自然数入力</label>

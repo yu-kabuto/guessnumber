@@ -4,71 +4,99 @@ const judgement = document.getElementById("judgement");
 const divisor = document.getElementById("divisor");
 var r = "";
 var s = "";
-var t = 0;
-var d = 0;
 var answer = Math.floor(Math.random() * 65280) + 256;
 var a = 0;
-var array = [];
+var b = 0;
+var arraya = [];
+var arrayb = [];
 button1.addEventListener("click", (e) => {
     e.preventDefault();
-    if(t == 0 || number.value % d == 0){
-	if(number.value < answer){
-		s += "The answer % ";
-		s += number.value;
-		s += " = ";
-		s += answer % number.value;
-		s += " .<br>";
-	    d = answer % number.value;
-	    if(answer % number.value == 0){
-		r = "You lose. The answer is ";
-		r += answer;
-		r += " .<br>"
-	    }
-	}
+    if(arrayb.includes(number.value)){
+	r = "This input is invalid.";
+    } else {
+	r = "";
 	if(number.value == answer){
 	    r = "You win.<br>";
+	} else {
+	    var eventclass = new EA( number.value, answer );
+	    arrayb[b] = number.value;
+	    b++;
+	    s += number.value;
+	    s += " : division ";
+	    eventclass.EA();
+	    s += eventclass.c;
+	    s += " time(s), ";
+	    if(eventclass.ha.length){
+		s += "history ";
+		s += eventclass.ha.join(',');
+		if(number.value > answer){
+		    r = "You lose.<br>";
+		}
+	    } else {
+		s += "no history";
+	    }
+	    s += "<br>";
 	}
-	if(number.value > answer){
-	    r = "You Lose. The answer is ";
-	    r += answer;
-	    r += " .<br>";
-	}
-    } else {
-	r = "Your input is Invalid.<br>";
     }
     
     judgement.innerHTML = r;
     divisor.innerHTML = s;
-    t += 1;
 });
 
-function EA(m, n){
-    this.c = 0;
-    this.gcd = 1;
-    this.ha = [];
-    var l, s, g;
-    l = Math.max(m, n);
-    s = Math.min(m, n);
-    while(s != 0){
-	g = s;
-	s = l % g;
-	array[a] = l;
-	if(!this.ha && g != m && g != n){
-	    this.ha = divshow(array[a-1], array[a]);
-	}
-	a++;
-	l = g;
-	this.c++;
+class EA {
+    constructor (m, n) {
+	this.m = m;
+	this.n = n;
+	this.c = 0;
+	this.gcd = 1;
+	this.ha = [];
     }
-    array[a] = g;
-    a++;
-    this.gcd = g;
+    EA(){
+	var l, s, g;
+	l = Math.max(this.m, this.n);
+	s = Math.min(this.m, this.n);
+	arraya[a] = l;
+	a++;
+	arraya[a] = s;
+	a++;
+	while(s != 0){
+	    g = s;
+	    s = l % g;
+	    var EAclass = new searchhistory( g, s );
+	    EAclass.searchhistory();
+	    if(!this.ha.length && g != this.m && g != this.n && EAclass.exist != -1){
+		this.ha = EAclass.show;
+	    }
+	    arraya[a] = s;
+	    a++;
+	    l = g;
+	    this.c++;
+	}
+	this.gcd = g;
+    }
 }
-	
-function divshow(m, n){
-    var l, s;
-    l = Math.max(m, n);
-    s = Math.max(m, n);
-    if(array.indexOf([l, s] > -1){
+
+class searchhistory {
+    constructor (m, n) {
+	this.m = m;
+	this.n = n;
+	this.exist = -1;
+	this.show = [];
+    }
+    
+    searchhistory(){
+	var la, sm, start, end;
+	la = Math.max(this.m, this.n);
+	sm = Math.min(this.m, this.n);
+	start = arraya.indexOf(la);
+	end = start;
+	if(start > -1 && arraya[start + 1] == sm){
+	    this.exist = 1;
+	    while(arraya[end] != 0){
+		end++;
+	    }
+	    end++;
+	    this.show = arraya.slice(start, end);
+	}
     }
 }
