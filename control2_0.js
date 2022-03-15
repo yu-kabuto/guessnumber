@@ -8,6 +8,8 @@ var answer = Math.floor(Math.random() * 65280) + 256;
 var a = 0;
 var b = 0;
 var arraya = [];
+arraya[0] = 0;
+a++;
 var arrayb = [];
 button1.addEventListener("click", (e) => {
     e.preventDefault();
@@ -90,7 +92,7 @@ class searchhistory {
 	sm = Math.min(this.m, this.n);
 	start = arraya.indexOf(la);
 	end = start;
-	if(start > -1 && arraya[start + 1] == sm){
+	if(start > -1 && arraya[start - 1] == 0 && arraya[start + 1] == sm){
 	    this.exist = 1;
 	    while(arraya[end] != 0){
 		end++;
